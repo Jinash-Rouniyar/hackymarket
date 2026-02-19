@@ -1,0 +1,267 @@
+@import "tailwindcss";
+
+@theme {
+  /* Soft wood palette */
+  --color-background: #A4C7FF;
+  --color-foreground: #3d3630;
+  --color-card: #f0ebe3;
+  --color-card-hover: #e8e2d9;
+  --color-border: #d4cdc4;
+  --color-muted: #7a7269;
+  --color-yes: #8077C8;
+  --color-no: #c45c4a;
+  --color-accent: #8077C8;
+  --color-accent-hover: #6B62B8;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Dark mode: softer dark, very bright text so most of the site updates */
+.dark {
+  --color-background: #1f1d1b;
+  --color-foreground: #ffffff;
+  --color-card: #2d2a26;
+  --color-card-hover: #3d3935;
+  --color-border: #4a4642;
+  --color-muted: #a8a29e;
+  --color-yes: #FE97B0;
+  --color-no: #fca5a5;
+  --color-accent: #FE97B0;
+  --color-accent-hover: #FF7FA0;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Auth page background */
+.auth-page-background {
+  position: relative;
+}
+
+.auth-page-background::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/timbermarketbackground.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.05) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.05) 100%);
+}
+
+.dark .auth-page-background::before {
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.03) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.03) 100%);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* === AUTO-ADAPT MOBILE RULES === */
+
+/* Automatically increase touch targets on mobile */
+@media (max-width: 640px) {
+  button, a[role="button"], input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px !important;
+  }
+
+  /* Exception: carousel dots should stay small */
+  button[aria-label*="Go to market"] {
+    min-height: 10px !important;
+    min-width: 10px !important;
+    padding: 0 !important;
+  }
+
+  input, textarea, select {
+    min-height: 44px;
+    padding: 12px !important;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Reduce excessive spacing on mobile */
+  [class*="gap-8"] { gap: 1rem !important; }
+  [class*="gap-6"] { gap: 0.75rem !important; }
+
+  /* Make text readable */
+  [class*="text-xs"] { font-size: 0.875rem !important; }
+  h1, h2, h3 { font-size: clamp(1.125rem, 5vw, 1.5rem) !important; }
+}
+
+/* Touch feedback for all interactive elements */
+button:active, a:active {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Better focus for accessibility */
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Prevent pull-to-refresh interference */
+body {
+  overscroll-behavior-y: contain;
+}
+
+/* Falling leaves on TV Recent Trades */
+@keyframes leaf-fall {
+  0% {
+    transform: translateY(-10%) rotate(0deg);
+    opacity: 0.92;
+  }
+  60% {
+    transform: translateY(70vh) rotate(200deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(110vh) rotate(380deg);
+    opacity: 0;
+  }
+}
+.leaf-fall {
+  animation: leaf-fall 3s ease-in forwards;
+}
+@keyframes leaf-wiggle {
+  0%, 100% { transform: translateX(-8px) rotate(-3deg); }
+  20% { transform: translateX(4px) rotate(2deg); }
+  40% { transform: translateX(-5px) rotate(-1deg); }
+  60% { transform: translateX(7px) rotate(3deg); }
+  80% { transform: translateX(-6px) rotate(-2deg); }
+}
+.leaf-wiggle {
+  animation: leaf-wiggle 0.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Ambient falling leaves for TV page */
+@keyframes ambient-leaf-fall {
+  0% {
+    transform: translateY(-60px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg);
+  }
+}
+@keyframes ambient-leaf-sway {
+  0%, 100% { transform: translateX(0px); }
+  25% { transform: translateX(30px); }
+  50% { transform: translateX(-20px); }
+  75% { transform: translateX(25px); }
+}
+.ambient-leaf-fall {
+  animation: ambient-leaf-fall var(--fall-duration, 10s) linear forwards;
+}
+.ambient-leaf-sway {
+  animation: ambient-leaf-sway var(--sway-duration, 4s) ease-in-out infinite;
+  animation-delay: var(--sway-delay, 0s);
+}
+
+/* === TV PAGE STYLES === */
+
+/* Header gradient underline */
+.tv-header-gradient {
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--color-card) 30%, transparent) 100%
+  );
+}
+
+/* Featured market subtle background */
+.tv-featured-bg {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-accent) 4%, transparent) 0%,
+    transparent 60%
+  );
+}
+.tv-featured-bg:hover {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-accent) 8%, transparent) 0%,
+    transparent 60%
+  );
+}
+
+/* Pulsing live indicator */
+@keyframes tv-live-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--color-accent); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 20%, transparent); }
+}
+.tv-live-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: tv-live-pulse 2s ease-in-out infinite;
+}
+
+/* Trending badge pulse */
+@keyframes tv-trending-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.tv-trending-pulse {
+  animation: tv-trending-pulse 2.5s ease-in-out infinite;
+}
+
+/* Trades feed bottom fade */
+.tv-trades-fade {
+  mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
+}
+
+/* Ticker tape scroll for Other Markets */
+@keyframes tv-ticker-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-1 * var(--ticker-distance)));
+  }
+}
+
+.tv-ticker-scroll {
+  animation: tv-ticker-scroll 20s linear infinite;
+}
+
+.tv-ticker-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Trade row hover */
+.tv-trade-row:hover {
+  background: color-mix(in srgb, var(--color-card-hover) 50%, transparent);
+}
