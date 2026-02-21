@@ -458,7 +458,7 @@ export default function TVPage() {
       <div className="absolute bottom-0 right-0 w-1/4 z-30 p-4">
         <div className="rounded-xl overflow-hidden shadow-lg border border-border/50 bg-white p-3">
           <Image
-            src="/code.png"
+            src="/frame_code.png"
             alt="QR Code"
             width={400}
             height={400}
