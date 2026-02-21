@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     icon: "/hackymarket_logo.svg",
   },
   openGraph: {
-    images: ["/hackymarket-background.jpg"],
+    images: ["/ui_elements/willy-wonka.png"],
   },
 };
 
